@@ -1,3 +1,6 @@
+# Projeto 5 - Decida por mim
+# Faça uma pergunta para o programa e ele terá que te dar uma resposta
+
 from random import choice
 
 class DecidaPorMim:

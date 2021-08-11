@@ -1,3 +1,5 @@
+# Projeto 2 - Projeto 1 com interface gráfica
+
 from random import randint
 import PySimpleGUI as sg
 

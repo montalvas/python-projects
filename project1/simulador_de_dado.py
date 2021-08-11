@@ -1,3 +1,6 @@
+# Projeto 1 - Simulador de dado
+# Simular o uso de um dado, gerando um valor de 1 até 6
+
 from random import randint
 
 class DiceSimulator:

@@ -1,3 +1,5 @@
+# Projeto 6 - Projeto 5 com interface gráfica
+
 from random import choice
 import PySimpleGUI as sg
 
