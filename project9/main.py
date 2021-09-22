@@ -3,8 +3,6 @@ A ideia consiste em criar um sistema de compras em programação funcional
 O usuario tem a opção de criar uma lista ou acessar uma já existente
 Pode adicionar um produto (nome - quantidade - preço unitario)
 e o sistema vai calcular o total
-Depois vai calcular o total da lista e aplicar um desconto
-caso seja compra à vista ou parcelado no cartao
 '''
 
 def novo_produto():
