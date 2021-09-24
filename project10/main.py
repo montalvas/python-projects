@@ -1,26 +1,17 @@
 # Mostra a tabela de placar
 def mostrarTabela():
-    for elemento in tabela:
-        for linha in elemento.values():
-            print(linha)
+    print('-' * 106)
+    print('|{:^20}|{:^20}|{:^20}|{:^20}|{:^20}|'.format('Nome', 'Vitorias', 'Empates', 'Derrotas', 'Pontos'))
+    print('-' * 106)
+    for jogador in jogadores:
+        calculaPontos(jogador)
+        print('|{:^20}|{:^20}|{:^20}|{:^20}|{:^20}|'.format(jogador['nome'], jogador['vitorias'], jogador['empates'], jogador['derrotas'], jogador['pontos']))
+        print('-' * 106)
     print()
-
-# Adiciona um novo jogador na tabela
-def adicionarJogador(jogador):
-    calculaPontos(jogador)
-    tabela.append({
-        'linha1': '|{:^20}|{:^20}|{:^20}|{:^20}|{:^20}|'.format(jogador['nome'], jogador['vitorias'], jogador['empates'], jogador['derrotas'], jogador['pontos']),
-        'linha2': '-' * 106,
-    },)
-
-# Calcula a pontuação do jogador
-def calculaPontos(jogador):
-    pontuacao = (jogador['vitorias'] * 3) + jogador['empates']
-    jogador['pontos'] = pontuacao
 
 # Mostra o menu de ações
 def abrirMenu():
-    menu = ['0 - Adicionar Vitória', '1 - Adicionar Empate', '2 - Adicionar Derrota', '3 - Adicionar Jogador', '4 - Limpar Tabela', '5 - Sair']
+    menu = ['0 - Adicionar Vitória', '1 - Adicionar Empate', '2 - Adicionar Derrota', '3 - Limpar Tabela', '4 - Sair']
     for item in menu:
         print(item)
     print()
@@ -37,13 +28,58 @@ def validarOpcao():
                 break
         return opcaoMenu
 
-tabela = [
-    {
-        'linha1': '-' * 106,
-        'linha2': '|{:^20}|{:^20}|{:^20}|{:^20}|{:^20}|'.format('Nome', 'Vitorias', 'Empates', 'Derrotas', 'Pontos'),
-        'linha3': '-' * 106,
-    },
-]
+'''
+# Adicionar um novo jogador na tabela {NÃO FUNCIONAL}
+
+def adicionarJogador():
+    nomeJogador = input("\nInsira o nome do jogador: ")
+    
+    jogador = {
+        'nome': nomeJogador.capitalize(),
+        'vitorias': 0,
+        'empates': 0,
+        'derrotas': 0,
+        'pontos': 0
+    }
+    
+    jogadores.append(jogador)   
+'''
+# Calcula a pontuação do jogador
+def calculaPontos(jogador):
+    pontuacao = (jogador['vitorias'] * 3) + jogador['empates'] - jogador['derrotas']
+    jogador['pontos'] = pontuacao
+
+# Adicionar Vitoria
+def adicionarVitoria(jogadorGanhador):
+    for jogador in jogadores:
+        if jogador['nome'] == jogadorGanhador.capitalize():
+            jogador['vitorias'] += 1
+            calculaPontos(jogador)
+        else:
+            jogador['derrotas'] += 1
+            calculaPontos(jogador)
+                
+    mostrarTabela()
+
+# Adicionar Empate
+def adicionarEmpate():
+    for jogador in jogadores:
+        jogador['empates'] += 1
+        calculaPontos(jogador)
+                
+    mostrarTabela()
+
+# Adicionar Derrota
+def adicionarDerrota(jogadorDerrotado):
+    for jogador in jogadores:
+        if jogador['nome'] == jogadorDerrotado.capitalize():
+            jogador['derrotas'] += 1
+            calculaPontos(jogador)
+        else:
+            jogador['vitorias'] += 1
+            calculaPontos(jogador)
+                
+    mostrarTabela()
 
 jogadores = [
     {
@@ -62,9 +98,6 @@ jogadores = [
     },
 ]
 
-adicionarJogador(jogadores[0])
-adicionarJogador(jogadores[1])
-
 mostrarTabela()
 
 while True:
@@ -73,16 +106,16 @@ while True:
     opcaoMenu = validarOpcao()
     
     if opcaoMenu == 0:
-        pass
+        ganhou = input("Qual jogador ganhou? ")       
+        adicionarVitoria(ganhou)
     elif opcaoMenu == 1:
-        pass
+        adicionarEmpate()
     elif opcaoMenu == 2:
-        pass
+        perdeu = input("Qual jogador perdeu? ")
+        adicionarDerrota(perdeu)
     elif opcaoMenu == 3:
         pass
     elif opcaoMenu == 4:
-        pass
-    elif opcaoMenu == 5:
         print("Encerrando...")
         break
     else:

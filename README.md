@@ -1,6 +1,6 @@
 # python-beginner-projects
  
-## Eight python beginner projects:
+## ten python beginner projects:
 
 1. Dice Simulator
 2. Dice Simulator GUI
