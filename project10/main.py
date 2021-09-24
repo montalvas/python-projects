@@ -51,15 +51,19 @@ def calculaPontos(jogador):
 
 # Adicionar Vitoria
 def adicionarVitoria(jogadorGanhador):
+    condicaoVitoria = False
     for jogador in jogadores:
         if jogador['nome'] == jogadorGanhador.capitalize():
             jogador['vitorias'] += 1
             calculaPontos(jogador)
-        else:
-            jogador['derrotas'] += 1
-            calculaPontos(jogador)
-                
-    mostrarTabela()
+            condicaoVitoria = True
+    
+    if condicaoVitoria:
+        for jogador in jogadores:
+            if jogador['nome'] != jogadorGanhador.capitalize():
+                jogador['derrotas'] += 1
+                calculaPontos(jogador)            
+        mostrarTabela()
 
 # Adicionar Empate
 def adicionarEmpate():
@@ -71,14 +75,25 @@ def adicionarEmpate():
 
 # Adicionar Derrota
 def adicionarDerrota(jogadorDerrotado):
+    condicaoDerrota = False
     for jogador in jogadores:
         if jogador['nome'] == jogadorDerrotado.capitalize():
             jogador['derrotas'] += 1
             calculaPontos(jogador)
-        else:
-            jogador['vitorias'] += 1
-            calculaPontos(jogador)
-                
+            condicaoDerrota = True
+    
+    if condicaoDerrota:
+        for jogador in jogadores:
+            if jogador['nome'] != jogadorDerrotado.capitalize():
+                jogador['vitorias'] += 1
+                calculaPontos(jogador)        
+        mostrarTabela()
+
+def limparPlacar():
+    for jogador in jogadores:
+        for dado in jogador.keys():
+            if dado != 'nome':
+                jogador[dado] = 0
     mostrarTabela()
 
 jogadores = [
@@ -114,7 +129,7 @@ while True:
         perdeu = input("Qual jogador perdeu? ")
         adicionarDerrota(perdeu)
     elif opcaoMenu == 3:
-        pass
+        limparPlacar()
     elif opcaoMenu == 4:
         print("Encerrando...")
         break
